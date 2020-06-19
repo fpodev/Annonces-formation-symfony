@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/css/axentix.min.css">
+        {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">   
+    </head>
+    <body>
+        <header>
+        <nav class="navbar primary">
+            <a href="{{ path('app_home') }}" target="_blank" class="navbar-brand">Axentix</a>
+            <div class="navbar-menu ml-auto">
+            <a class="navbar-link" href="#">Accueil</a>
+            <a class="navbar-link" href="#">Link 2</a>
+            <a class="navbar-link" href="#">Link 3</a>
+            <a class="navbar-link" href="#">Link 4</a>
+            </div>
+        </nav>
+        </header>
+
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer class="footer primary">
+        Copyright © 2020 - Example
+        </footer>
+        
+        <script src="https://cdn.jsdelivr.net/npm/axentix@0.5.3/dist/js/axentix.min.js"></script>
+        {% block javascripts %}{% endblock %}
+        <script src="{{ asset('js/script.js') }}"></script>
+    </body>
+</html>
