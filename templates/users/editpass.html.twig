@@ -1,0 +1,41 @@
+{#
+Author: fpodev (fpodev@gmx.fr)
+editprofile.html.twig (c) 2020
+Desc: description
+Created:  2020-07-07T14:10:03.250Z
+Modified: !date!
+#}
+{% extends 'users.html.twig' %}
+
+{% block title %}Modification du mot de passe de {{ app.user.firstname }} {{ app.user.name }}{% endblock %}
+
+{% block body %}
+
+<div class="grix xs4 container">
+    {% for message in app.flashes('erreur') %}
+        <div class="col-xs4">
+            <div class="p-3 my-2 rounded-2 error" role="alert">
+                {{ message }}
+             </div>
+        </div>
+    {% endfor %}
+    <div class="col-xs4">
+        <h1>Modification du modt de passe de {{ app.user.firstname }} {{ app.user.name }}</h1>
+      <form action="" method="post">
+        <div class="form-field">
+            <label for="pass">Mot de passe</label>
+            <input type="password" id="pass" name="pass" class="form-control" />
+        </div>
+        <div class="form-field">
+            <label for="pass2">Confirmer mot de passe</label>
+            <input type="password" id="pass2" name="pass2" class="form-control" />
+        </div>
+        <button class="btn blue">Valider</button>
+      </form>
+    
+    
+  
+</div>
+
+{% endblock %}
+
