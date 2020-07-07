@@ -1,0 +1,24 @@
+{#
+Author: fpodev (fpodev@gmx.fr)
+editprofile.html.twig (c) 2020
+Desc: description
+Created:  2020-07-07T14:10:03.250Z
+Modified: !date!
+#}
+{% extends 'users.html.twig' %}
+
+{% block title %}Modification du profil de {{ app.user.firstname }} {{ app.user.name }}{% endblock %}
+
+{% block body %}
+
+<div class="grix xs4 container">
+    <div class="col-xs4">
+        <h1>Modification du profil de {{ app.user.firstname }} {{ app.user.name }}</h1>
+        {{ form(form) }}
+    </div>
+    
+  
+</div>
+
+{% endblock %}
+
