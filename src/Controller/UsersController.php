@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Images;
 use App\Entity\Annonces;
 use App\Form\AnnoncesType;
 use App\Form\EditProfileType;
@@ -36,6 +37,21 @@ class UsersController extends AbstractController
             $annonce->setUsers($this->getUser());
             $annonce->setActive(false);
 
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $image) {
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'), $fichier
+                );
+
+                $img = new Images();
+                $img->setName($fichier);
+                $annonce->addImage($img);
+            }
+
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($annonce);
             $em->flush();
@@ -58,7 +74,8 @@ class UsersController extends AbstractController
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()){            
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

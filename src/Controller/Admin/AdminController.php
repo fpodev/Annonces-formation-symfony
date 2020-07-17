@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Annonces;
 use App\Entity\Categories;
+use App\Entity\Images;
 use App\Form\AnnoncesType;
 use App\Form\CategoriesType;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,6 +62,22 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            $annonce->setUsers($this->getUser());
+            $annonce->setActive(false);
+            $images = $form->get('images')->getData();
+
+            foreach ($images as $image) {
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+
+                $image->move(
+                    $this->getParameter('images_directory'), $fichier
+                );
+
+                $img = new Images();
+                $img->setName($fichier);
+                $annonce->addImage($img);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($annonce);
             $em->flush();
