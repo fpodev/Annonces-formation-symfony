@@ -1,0 +1,23 @@
+{% extends 'users.html.twig' %}
+
+{% block title %}{{ annonce.title }} {% endblock %}
+
+{% block body %}          
+<div class="container">
+      
+    <div class="grix xs2 sm3 gutter-0 card">
+        <div class="primary flex vcenter fx-center">
+            <img src="{{ asset('uploads/images/annonces/' ~ annonce.images[0].name)|imagine_filter('square') }}" alt="{{ annonce.title }}">
+        </div>
+        <div class="col-sm2">
+          <div class="card-header">{{ annonce.title }}</div>
+          <div class="card-content">
+            <p>catégorie : {{ annonce.categories.name }}</p>
+            <p>
+              {{ annonce.content|raw }}
+            </p>
+          </div>
+        </div>
+      </div> 
+</div>     
+{% endblock %}
