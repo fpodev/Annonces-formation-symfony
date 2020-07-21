@@ -1,0 +1,22 @@
+{#
+Author: fpodev (fpodev@gmx.fr)
+contact.html.twig (c) 2020
+Desc: description
+Created:  2020-07-21T13:27:56.474Z
+Modified: !date!
+#}
+
+{% extends 'users.html.twig' %}
+
+{% block title %}Nous contacter {% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for message in app.flashes('message') %}
+    <div class="p-3 my-2 rounded-2 success"> {{ message }} </div>
+    {% endfor %}
+    <h1>Nous contacter</h1>
+
+    {{ form(form) }}
+</div> 
+{% endblock %}
