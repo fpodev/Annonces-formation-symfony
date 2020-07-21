@@ -2,22 +2,56 @@
 
 {% block title %}{{ annonce.title }} {% endblock %}
 
-{% block body %}          
+{% block body %}
 <div class="container">
-      
-    <div class="grix xs2 sm3 gutter-0 card">
-        <div class="primary flex vcenter fx-center">
-            <img src="{{ asset('uploads/images/annonces/' ~ annonce.images[0].name)|imagine_filter('square') }}" alt="{{ annonce.title }}">
-        </div>
-        <div class="col-sm2">
-          <div class="card-header">{{ annonce.title }}</div>
-          <div class="card-content">
-            <p>catégorie : {{ annonce.categories.name }}</p>
-            <p>
-              {{ annonce.content|raw }}
-            </p>
-          </div>
-        </div>
-      </div> 
-</div>     
+    {% for message in app.flashes('message') %}
+    <div class="p-3 my-2 rounded-2 success">{{ message }}</div>
+    {% endfor %}
+  <div class="grix xs2 sm3 gutter-0 card">
+    <div class="primary flex vcenter fx-center">
+      <img src="{{ asset('uploads/images/annonces/' ~ annonce.images[0].name)|imagine_filter('square') }}"
+        alt="{{ annonce.title }}">
+    </div>
+    <div class="col-sm2">
+      <div class="card-header">{{ annonce.title }}</div>
+      <div class="card-content">
+        <p>catégorie : {{ annonce.categories.name }}</p>
+        <p>
+          {{ annonce.content|raw }}
+        </p>
+        <p>
+          <button class="btn primary press modal-trigger" data-target="modal-contact">Contacter l'annonceur</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal white falling" id="modal-contact">
+  <div class="modal-header">Contacter l'annonceur</div>
+  <div class="divider"></div>
+
+    {{ form_start(form) }}
+  <div class="modal-content">
+      {{ form_widget(form.title) }}
+      {{ form_row(form.email) }}
+      {{ form_row(form.message) }}
+  </div>
+  <div class="divider"></div>
+  <div class="modal-footer">
+    <button class='btn small primary'>Envoyer</button>
+    <button data-target="modal-contact" class="ml-auto btn small secondary modal-trigger">Fermer</button>
+  </div>
+    {{ form_end(form)}}
+</div>
+
+{% endblock %}
+{% block javascripts %}
+<script>
+  window.onload = () => {
+    document.querySelector('#annonce_contact_title').value = "{{ annonce.title }} "
+  }
+  let modal = new Modal('#modal-contact');
+</script>
+  
 {% endblock %}
